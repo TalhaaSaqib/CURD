@@ -1,0 +1,149 @@
+import os
+z = 1
+while(True):
+    print("\n 1 = Add details ")
+    print("\n 2 = Display record submissions \n")
+    print("\n 3 = Search by student name \n")
+    print("\n 4 = Search by rollno  \n")
+    print("\n 5 = Delete student record \n")
+    print("\n 6 = Update student record \n")
+    print("\n 7 = Exit \n")
+
+    n = int(input("\n Enter your choice : \n"))
+    if(n == 7):
+        print("See you soon :)")
+        break
+    elif(n == 1):
+        print("\nEnter the students details\n")
+        name = input("Enter Name : ")
+        rol = input("Enter Rollno :")
+        cls = input("Enter Class : ")
+        fees = input("Enter Fees : ")
+        per = input("Enter Percentage : ")
+        f = open("Students.txt", "a")
+        f.write(name+"-"+rol+"-"+cls+"-"+fees+"-"+per+"\n")
+        f.close()
+    elif(n == 2):
+        print("Display details")
+        print("Name-Rollno-Class-Fees-Per")
+        f = open("Students.txt", "r")
+        while(True):
+            d = f.readline()
+            l = len(d)
+            if(l == 0):
+                break
+            print(d.strip())
+
+        f.close()
+    elif(n == 3):
+        search = input("Enter student name: \n")
+        f = open("Students.txt", "r")
+        flag = 0
+        while(True):
+            t = f.readline()
+            l = len(t)
+            if(l == 0):
+                break
+            g = t.split("-")
+            if(g[0] == search):
+                print("\n Record found")
+                print("\n Name is :", g[0])
+                print("\n Rollno is :", g[1])
+                print("\n Class is :", g[2])
+                print("\n Fees is :", g[3])
+                print("\n Percentage is :", g[4])
+                flag = 1
+                break
+        if(flag == 0):
+            print('Record not found')
+
+        f.close()
+
+    elif(n == 4):
+        search = input("Enter Rollno: \n")
+        f = open("Students.txt", "r")
+        flag = 0
+        while(True):
+            t = f.readline()
+            l = len(t)
+            if(l == 0):
+                break
+            g = t.split("-")
+            if(g[1] == search):
+                print("\n Record found")
+                print("\n Name is :", g[0])
+                print("\n Rollno is :", g[1])
+                print("\n Class is :", g[2])
+                print("\n Fees is :", g[3])
+                print("\n Percentage is :", g[4])
+                flag = 1
+                break
+        if(flag == 0):
+            print('Record not found')
+
+        f.close()
+    elif(n == 5):
+        search = input("Enter student name: \n")
+        f = open("Students.txt", "r")
+        tt = open("tfile.txt", "w")
+        h = 0
+        flag = 0
+        while(True):
+            t = f.readline()
+            l = len(t)
+            if(l == 0):
+                break
+            g = t.split("-")
+            if(g[0] != search):
+                tt.write(t)
+            if(g[0] == search):
+                h == 1
+
+        f.close()
+        tt.close()
+        if(h == 1):
+            print("Record deleted successfully")
+            os.remove("Students.txt")
+            os.rename("tfile.txt", "Students.txt")
+        elif(h == 0):
+            print("Record not found!!! Deletion unsuccessfull")
+    elif(n == 6):
+        h == 0
+        search = input("Enter student name for update: \n")
+        f = open("Students.txt", "r")
+        tt = open("tfile.txt", "w")
+        flag = 0
+        while(True):
+            t = f.readline()
+            l = len(t)
+            if(l == 0):
+                break
+            g = t.split("-")
+            if(g[0] == search):
+                print("\n Current details", t)
+                print("-------------------")
+                newroll = input("Enter newroll number: ")
+                newclass = input("Enter newclass grade: ")
+                newfees = input("Enter newfees details: ")
+                newper = input("Enter newpercentage: ")
+                if(len(newroll) == 0):
+                    newroll == g[1]
+                if(len(newclass) == 0):
+                    newclass == g[2]
+                if(len(newfees) == 0):
+                    newfees == g[3]
+                if(len(newper) == 0):
+                    newper == g[4]
+                tt.write("\n"+g[0]+"-"+newroll+"-" +
+                         newclass+"-"+newfees+"-"+newper)
+                h = 1
+            else:
+                tt.write(t)
+            f.close()
+            tt.close()
+            if(h == 1):
+                print("Update successfully")
+                os.remove("Students.txt")
+                os.rename("tfile.txt", "Students.txt")
+            elif(h == 0):
+                print("Record not found!! No Updation occured")

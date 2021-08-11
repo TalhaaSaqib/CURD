@@ -1,4 +1,8 @@
 import os
+from colorama import Fore
+import colorama
+
+colorama.init(autoreset = True)
 z = 1
 while(True):
     print("\n 1 = Add details ")
@@ -23,6 +27,7 @@ while(True):
         f = open("Students.txt", "a")
         f.write(name+"-"+rol+"-"+cls+"-"+fees+"-"+per+"\n")
         f.close()
+        print(f'{Fore.BLUE} \n Success !!')
     elif(n == 2):
         print("Display details")
         print("Name-Rollno-Class-Fees-Per")
